@@ -3,18 +3,20 @@
 
 #include <variant>
 #include <vector>
-#include <string>
+#include <string_view>
 
-
+namespace vox {
 struct OpReturn {};
 struct OpConstant {
     double d;
 };
+struct OpNegate {};
 
 using Operations = std::variant
     <
     OpReturn,
-    OpConstant
+    OpConstant,
+    OpNegate
     >;
 
 template <typename T>
@@ -31,6 +33,12 @@ struct OpCodeMetadata<OpConstant> {
     static constexpr std::string_view name = "Constant";
 };
 
+template<>
+struct OpCodeMetadata<OpNegate> {
+    static constexpr std::string_view name = "Negate";
+};
+
+
 
 struct Chunk {
     std::vector<Operations> operations;
@@ -38,6 +46,7 @@ struct Chunk {
     std::vector<int> lines;
 };
 
+}
 
 
 #endif // CHUNK_H_

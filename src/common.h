@@ -2,6 +2,9 @@
 #define COMMON_H_
 
 #include <cstdint>
+#include <vector>
+
+#include <spdlog/spdlog.h>
 
 using u8 = uint8_t;
 using u16 = uint16_t;
