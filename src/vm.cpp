@@ -3,8 +3,6 @@
 #include "chunk.h"
 // #include "config.h"
 
-#include <iostream>
-#include <variant>
 
 using namespace vox;
 
@@ -36,6 +34,18 @@ auto VM::run() -> InterpretResult
                 } else if constexpr (std::is_same_v<T, OpNegate>) {
                     op_negate();
                     return InterpretResult::Ok;
+                } else if constexpr (std::is_same_v<T, OpAdd>) {
+                    do_bin_op<std::plus<Value>>(stack_);
+                    return InterpretResult::Ok;
+                } else if constexpr (std::is_same_v<T, OpSubtract>) {
+                    do_bin_op<std::minus<Value>>(stack_);
+                    return InterpretResult::Ok;
+                } else if constexpr (std::is_same_v<T, OpMultiply>) {
+                    do_bin_op<std::multiplies<Value>>(stack_);
+                    return InterpretResult::Ok;
+                } else if constexpr (std::is_same_v<T, OpDivide>) {
+                    op_negate();
+                    return InterpretResult::Ok;
                 }
                 return InterpretResult::CompileError;
             },
@@ -51,8 +61,7 @@ auto VM::print_stack() -> void
         return;
 
     // spdlog::info("[");
-    for (auto x : stack_)
-    {
+    for (auto x : stack_) {
         // spdlog::info(x);
     }
     // spdlog::info("]");
@@ -63,16 +72,15 @@ auto VM::op_constant(Value d) -> void
     stack_.push_back(d);
 }
 
- auto VM::op_return() -> void
- {
-     if (!stack_.empty())
-         stack_.pop_back();
- }
+auto VM::op_return() -> void
+{
+    if (!stack_.empty())
+        stack_.pop_back();
+}
 
 auto VM::op_negate() -> void
 {
-    if (!stack_.empty())
-    {
+    if (!stack_.empty()) {
         auto d = stack_.back();
         stack_.pop_back();
         stack_.push_back(-d);

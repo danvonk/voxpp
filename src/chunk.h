@@ -11,12 +11,20 @@ struct OpConstant {
     double d;
 };
 struct OpNegate {};
+struct OpAdd {};
+struct OpSubtract {};
+struct OpMultiply {};
+struct OpDivide {};
 
 using Operations = std::variant
     <
     OpReturn,
     OpConstant,
-    OpNegate
+    OpNegate,
+    OpAdd,
+    OpSubtract,
+    OpMultiply,
+    OpDivide
     >;
 
 template <typename T>
@@ -37,6 +45,24 @@ template<>
 struct OpCodeMetadata<OpNegate> {
     static constexpr std::string_view name = "Negate";
 };
+
+template<>
+struct OpCodeMetadata<OpAdd> {
+    static constexpr std::string_view name = "Add";
+};
+template<>
+struct OpCodeMetadata<OpSubtract> {
+    static constexpr std::string_view name = "Subtract";
+};
+template<>
+struct OpCodeMetadata<OpMultiply> {
+    static constexpr std::string_view name = "Multiply";
+};
+template<>
+struct OpCodeMetadata<OpDivide> {
+    static constexpr std::string_view name = "Divide";
+};
+
 
 
 

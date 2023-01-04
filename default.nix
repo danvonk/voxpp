@@ -7,7 +7,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "cpp-examples";
+  pname = "voxpp";
   version = "0.1.0";
 
   src = ./.;
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DENABLE_TESTING=OFF"
-   "-DENABLE_INSTALL=OFF"
+    "-DENABLE_INSTALL=OFF"
     "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
   ];
 

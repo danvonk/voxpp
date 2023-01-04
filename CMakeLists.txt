@@ -15,7 +15,7 @@ find_package(argparse REQUIRED)
 set(vox_hds
   src/vm.h
   src/chunk.h
- # src/config.h
+  src/config.h
   src/common.h
   )
 

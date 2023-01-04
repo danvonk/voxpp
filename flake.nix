@@ -37,7 +37,6 @@
                  '';
                };
 
-
                defaultPackage = pkgs.callPackage ./default.nix {} ;
               });
 }
